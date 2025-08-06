@@ -25,9 +25,11 @@ export default async function handler(req, res) {
       const reply = data.candidates[0]?.content?.parts[0]?.text || "No response";
       res.status(200).json({ reply });
     } else {
+      console.error("Gemini API error:", data);
       res.status(500).json({ error: "No candidates returned", details: data });
     }
   } catch (err) {
+    console.error("Fetch error:", err);
     res.status(500).json({ error: "Request failed", details: err.message });
   }
 }
